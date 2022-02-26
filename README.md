@@ -1,0 +1,1 @@
+### Maven test project configured to run in VS Code
