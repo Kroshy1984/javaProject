@@ -7,6 +7,10 @@
     <groupId>ru.sfedu</groupId>
     <artifactId>javaProject</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <properties>
+        <maven.compiler.source>16</maven.compiler.source>
+        <maven.compiler.target>16</maven.compiler.target>
+    </properties>
 
 
 </project>
