@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static ru.sfedu.javaProject.utils.ConfigurationUtil.getConfigurationEntry;
 
@@ -69,10 +70,10 @@ public class DataProviderJDBC implements DataProvider {
     }
 
     @Override
-    public User getUserById(Long id) throws SQLException, IOException {
+    public Optional<User> getUserById(Long id) throws SQLException, IOException {
         Connection connection = getConnection();
         List<User> userList = getUserListFromResultSet(connection.prepareStatement(String.format(Constants.SQL_USER_SELECT_BY_ID, id)).executeQuery());
-        return userList.stream().findAny().orElseThrow(IOException::new);
+        return userList.stream().findAny();
     }
 
     @Override

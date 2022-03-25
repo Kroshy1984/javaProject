@@ -1,6 +1,10 @@
 package ru.sfedu.javaProject.utils;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Objects;
 import java.util.Properties;
 
 /**
@@ -10,19 +14,17 @@ import java.util.Properties;
  * @author Boris Jmailov
  */
 public class ConfigurationUtil {
-    private static final String DEFAULT_CONFIG_PATH = System.getProperty("config",
-        ConfigurationUtil.class.getClassLoader().getResource("environment.properties").getPath());
-    private static final Properties configuration = new Properties();
 
+    private static final String DEFAULT_CONFIG_PATH = System.getProperty("config",
+            Objects.requireNonNull(ConfigurationUtil.class.getClassLoader().getResource("enviroment.properties")).getPath());
+    private static final Properties configuration = new Properties();
     /**
      * Hides default constructor
-     *
-     *
      */
-    private ConfigurationUtil() {
+    public ConfigurationUtil() {
+
     }
-
-
+    
     private static Properties getConfiguration() throws IOException {
         if(configuration.isEmpty()){
             loadConfiguration();
@@ -36,13 +38,11 @@ public class ConfigurationUtil {
      */
     private static void loadConfiguration() throws IOException{
         File nf = new File(DEFAULT_CONFIG_PATH);
-        InputStream in = new FileInputStream(nf);
-        try {
+        // DEFAULT_CONFIG_PATH.getClass().getResourceAsStream(DEFAULT_CONFIG_PATH);
+        try (InputStream in = new FileInputStream(nf)) {
             configuration.load(in);
         } catch (IOException ex) {
             throw new IOException(ex);
-        } finally{
-            in.close();
         }
     }
     /**
@@ -54,5 +54,5 @@ public class ConfigurationUtil {
     public static String getConfigurationEntry(String key) throws IOException{
         return getConfiguration().getProperty(key);
     }
-
+    
 }

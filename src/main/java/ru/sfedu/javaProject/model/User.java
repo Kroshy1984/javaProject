@@ -38,4 +38,14 @@ public class User {
     public void setPatronymic(String patronymic) {
         this.patronymic = patronymic;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", firstname='" + firstname + '\'' +
+                ", surname='" + surname + '\'' +
+                ", patronymic='" + patronymic + '\'' +
+                '}';
+    }
 }
