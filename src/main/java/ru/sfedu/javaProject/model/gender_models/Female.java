@@ -1,12 +1,18 @@
 package ru.sfedu.javaProject.model.gender_models;
 
 import jakarta.persistence.*;
+import lombok.*;
 import ru.sfedu.javaProject.model.Gender;
 import ru.sfedu.javaProject.model.Pair;
 
 import java.util.Set;
 
 @Entity
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class Female {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

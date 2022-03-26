@@ -1,14 +1,16 @@
 package ru.sfedu.javaProject.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import ru.sfedu.javaProject.model.gender_models.Female;
 import ru.sfedu.javaProject.model.gender_models.Male;
 
 @Entity(name = "Pairs")
-@Data
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 public class Pair {
 
     @Id
