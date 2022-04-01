@@ -1,1 +1,3 @@
 # javaProject
+
+A university project
