@@ -18,7 +18,6 @@ public class Male {
     @Column(nullable = false)
     private Long id;
     private String name;
-    private final String gender = Gender.MALE.toString();
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "male")
     private Set<Pair> pairSet;
 
