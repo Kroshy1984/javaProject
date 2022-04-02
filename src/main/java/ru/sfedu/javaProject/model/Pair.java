@@ -2,8 +2,9 @@ package ru.sfedu.javaProject.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import ru.sfedu.javaProject.model.gender_models.Female;
-import ru.sfedu.javaProject.model.gender_models.Male;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity(name = "Pairs")
 @Builder
@@ -18,11 +19,11 @@ public class Pair {
     @Column(nullable = false)
     private Long id;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "male_id", nullable = false)
-    private Male male;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name ="pairs_connect"
+                , joinColumns = {@JoinColumn(name = "pair_id")}
+                , inverseJoinColumns = {@JoinColumn(name = "user_id")}
+            , uniqueConstraints = {@UniqueConstraint(columnNames = {"pair_id", "user_id"})})
+    private Set<SUser> users = new HashSet<>();
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "female_id", nullable = false)
-    private Female female;
 }
