@@ -47,7 +47,7 @@ public class Password {
         }
     }
 
-    public boolean isValid(String rawPassword) {
+    public boolean matches(String rawPassword) {
         switch (encodingAlgorithm) {
             case BCRYPT:
                 BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
