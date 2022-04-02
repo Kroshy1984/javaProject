@@ -1,12 +1,14 @@
 package ru.sfedu.javaProject.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity(name = "Pairs")
-@Data
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 public class Pair {
 
     @Id
@@ -14,9 +16,11 @@ public class Pair {
     @Column(nullable = false)
     private Long id;
 
-    @Column(name = "first_user_id", nullable = false)
-    private Long firstUserId;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "male_id", nullable = false)
+    private Male male;
 
-    @Column(name = "second_user_id", nullable = false)
-    private Long secondUserId;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "female_id", nullable = false)
+    private Female female;
 }
