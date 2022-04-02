@@ -27,13 +27,11 @@ public class Password {
     }
 
     public static Password create(EncodingAlgorithm encodingAlgorithm, String rawPassword) {
-        if (rawPassword.length() < MIN_PASSWORD_LENGTH) {
+        if (rawPassword.length() < MIN_PASSWORD_LENGTH)
             throw new PasswordTooShortException();
-        }
 
-        if (rawPassword.length() > MAX_PASSWORD_LENGTH) {
+        if (rawPassword.length() > MAX_PASSWORD_LENGTH)
             throw new PasswordTooLongException();
-        }
 
         switch (encodingAlgorithm) {
             case BCRYPT:
