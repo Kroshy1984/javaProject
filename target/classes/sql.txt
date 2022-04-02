@@ -4,7 +4,6 @@ CREATE TABLE `muam`.`user` (
   `second_name` VARCHAR(45) NOT NULL,
   `middle_name` VARCHAR(45) NULL);
 
-
 CREATE TABLE `muam`.`documents` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(45) NOT NULL,
@@ -24,13 +23,11 @@ CREATE TABLE `muam`.`person` (
   `middle_name` VARCHAR(45) NULL,
   UNIQUE(first_name, last_name, middle_name));
 
-
 CREATE TABLE `muam`.`room` (
   `room_id` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `number` INT NOT NULL UNIQUE,
   `square` INT NOT NULL UNIQUE,
   `price` INT NOT NULL);
-
 
 CREATE TABLE `muam`.`booking` (
   `user_id` INT NOT NULL,
