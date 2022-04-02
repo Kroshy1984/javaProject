@@ -37,10 +37,10 @@ public class DefaultService {
         userRepository.save(user);
     }
 
-    public void createPair(Pair pair) {
+    public void createPair(Pair pair) throws IllegalArgumentException {
         List<User> users = new ArrayList<>(pair.getUsers());
-        if (!pairRepository.findAllByUsersContainsAndUsersContains(users.get(0), users.get(1)).iterator().hasNext())
-            pairRepository.save(pair);
+        if (pairRepository.findAllByUsersContainsAndUsersContains(users.get(0), users.get(1)).iterator().hasNext()) throw new IllegalArgumentException("duplicate pair");
+        pairRepository.save(pair);
     }
 
     public Optional<Pair> getPairById(Long id) {

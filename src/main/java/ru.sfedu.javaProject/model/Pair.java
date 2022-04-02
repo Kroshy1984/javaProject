@@ -21,8 +21,8 @@ public class Pair {
     @JoinTable(
             name = "Pairs_Users",
             joinColumns = { @JoinColumn(name = "pair_id") },
-            inverseJoinColumns = { @JoinColumn(name = "user_id") }
+            inverseJoinColumns = { @JoinColumn(name = "user_id") },
+            uniqueConstraints = {@UniqueConstraint(name = "UniqueUserAndPair", columnNames = { "pair_id", "user_id" })}
     )
-    @Column(name="users", unique = true)
     private Set<User> users = new HashSet<>();
 }
