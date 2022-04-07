@@ -6,8 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="MUAMJava" />
+        <module name="javaProject" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="javaProject" target="16" />
+    </bytecodeTargetLevel>
   </component>
 </project>
