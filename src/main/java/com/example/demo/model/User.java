@@ -1,6 +1,6 @@
-package ru.sfedu.javaProject.model;
+package com.example.demo.model;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

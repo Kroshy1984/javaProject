@@ -1,4 +1,4 @@
-package ru.sfedu.javaProject.model;
+package com.example.demo.model;
 
 public enum Gender {
     MALE,

@@ -1,15 +1,16 @@
-package ru.sfedu.javaProject.controllers;
+package com.example.demo.controllers;
 
+import com.example.demo.Constants;
+import com.example.demo.model.Gender;
+import com.example.demo.model.Pair;
+import com.example.demo.model.User;
+import com.example.demo.services.DefaultService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
-import ru.sfedu.javaProject.Constants;
-import ru.sfedu.javaProject.model.Gender;
-import ru.sfedu.javaProject.model.Pair;
-import ru.sfedu.javaProject.model.User;
-import ru.sfedu.javaProject.services.DefaultService;
+
 
 import java.util.Iterator;
 import java.util.List;
