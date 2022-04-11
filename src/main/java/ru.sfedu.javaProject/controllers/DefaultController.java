@@ -1,21 +1,29 @@
 package ru.sfedu.javaProject.controllers;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.*;
 import ru.sfedu.javaProject.Constants;
-import ru.sfedu.javaProject.model.Gender;
-import ru.sfedu.javaProject.model.Pair;
-import ru.sfedu.javaProject.model.User;
+import ru.sfedu.javaProject.model.dto.PairRequest;
+import ru.sfedu.javaProject.model.entity.Appointment;
+import ru.sfedu.javaProject.model.entity.Pair;
+import ru.sfedu.javaProject.model.entity.User;
 import ru.sfedu.javaProject.services.DefaultService;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import javax.persistence.EntityExistsException;
+import javax.persistence.EntityNotFoundException;
+import javax.persistence.PersistenceException;
+import javax.validation.Valid;
+import java.util.*;
 
 @Controller
+@Validated
 public class DefaultController {
 
     private DefaultService defaultService;
@@ -25,90 +33,187 @@ public class DefaultController {
         this.defaultService = defaultService;
     }
 
-    @GetMapping(path = {"user/get/{id}"})
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseBody
-    public String getUser(@PathVariable Long id) {
-        try {
-            User user = defaultService.getUserById(id).orElseThrow(() -> new IllegalArgumentException(Constants.ERROR_USER_NOT_FOUND));
-            return user.toString();
-        } catch (IllegalArgumentException e) {
-            return e.getMessage();
-        }
+    private Map<String, String> handleValidationExceptions(
+            MethodArgumentNotValidException ex) {
+        Map<String, String> errors = new HashMap<>();
+        ex.getBindingResult().getAllErrors().forEach((error) -> {
+            String fieldName = ((FieldError) error).getField();
+            String errorMessage = error.getDefaultMessage();
+            errors.put(fieldName, errorMessage);
+        });
+        return errors;
     }
 
-    @GetMapping(path = {"user/getAll"})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler({EntityNotFoundException.class, EntityExistsException.class})
     @ResponseBody
-    public String getAllUsers() {
+    private String handleEntityNotFoundOrExistsExceptions(
+            PersistenceException ex) {
+        return ex.getMessage();
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler({ConstraintViolationException.class})
+    @ResponseBody
+    private String handleConstraintViolationExceptions(
+            ConstraintViolationException ex) {
+        return Constants.ERROR_CONSTRAINT_VIOLATION;
+    }
+
+    @PostMapping(path = {"user/create/"})
+    @ResponseBody
+    public ResponseEntity<Void> createUser(@Valid @RequestBody User user) {
+        user.setId(null);
+        defaultService.createUser(user);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @GetMapping(path = {"user/{id}"})
+    @ResponseBody
+    public ResponseEntity<User> getUser(@PathVariable Long id) {
+        return new ResponseEntity<>(
+                defaultService.getUserById(id).orElseThrow(() ->
+                        new EntityNotFoundException(Constants.ERROR_USER_NOT_FOUND)),
+                HttpStatus.OK);
+    }
+
+    @GetMapping(path = {"user/all"})
+    @ResponseBody
+    public ResponseEntity<Iterable<User>> getAllUsers() {
         Iterable<User> users = defaultService.getAllUsers();
-        StringBuilder response = new StringBuilder();
-        if (!users.iterator().hasNext()) response.append(Constants.ERROR_USER_NOT_FOUND);
-        else users.forEach(user -> response.append(user).append("</br>"));
-        return response.toString();
+        if (!users.iterator().hasNext()) throw new EntityNotFoundException(Constants.ERROR_USER_NOT_FOUND);
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @GetMapping(path = {"user/create/{age}&{gender}&{name}"})
+    @PostMapping(path = {"user/update/"})
     @ResponseBody
-    public String createUser(@PathVariable Integer age, @PathVariable Gender gender, @PathVariable String name) {
-        try {
-            User user = new User();
-            user.setAge(age);
-            user.setGender(gender);
-            user.setName(name);
-            defaultService.createUser(user);
-            return "ok";
-        } catch (IllegalArgumentException e) {
-            return e.getMessage();
-        }
+    public ResponseEntity<Void> updateUser(@Valid @RequestBody User user) {
+        if (!defaultService.updateUser(user)) throw new EntityExistsException(Constants.ERROR_USER_NOT_FOUND);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping(path = {"pair/get/{id}"})
+    @DeleteMapping(path = {"user/{id}"})
     @ResponseBody
-    public String getPair(@PathVariable Long id) {
-        try {
-            Pair pair = defaultService.getPairById(id).orElseThrow(() -> new IllegalArgumentException(Constants.ERROR_PAIR_NOT_FOUND));
-            return pair.toString();
-        } catch (IllegalArgumentException e) {
-            return e.getMessage();
-        }
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+        if (!defaultService.deleteUserById(id)) throw new EntityExistsException(Constants.ERROR_USER_NOT_FOUND);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping(path = {"pair/getAll"})
+    @DeleteMapping(path = {"user/all"})
     @ResponseBody
-    public String getAllPairs() {
+    public ResponseEntity<Void> deleteAllUsers() {
+        defaultService.deleteAllUsers();
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping(path = {"pair/create/"})
+    @ResponseBody
+    public ResponseEntity<Void> createPair(@Valid @RequestBody PairRequest pairRequest) {
+        Pair pair = new Pair();
+        Set<User> userSet = new HashSet<>();
+        defaultService.getAllUsersById(List.of(pairRequest.getFirstUserId(), pairRequest.getSecondUserId())).forEach(userSet::add);
+        pair.setUsers(userSet);
+        if (!defaultService.createPair(pair)) throw new EntityExistsException(Constants.ERROR_PAIR_IS_EXISTS);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @GetMapping(path = {"pair/{id}"})
+    @ResponseBody
+    public ResponseEntity<Pair> getPair(@PathVariable Long id) {
+        return new ResponseEntity<>(
+                defaultService.getPairById(id).orElseThrow(() -> new EntityNotFoundException(Constants.ERROR_PAIR_NOT_FOUND)),
+                HttpStatus.OK);
+    }
+
+    @GetMapping(path = {"pair/all"})
+    @ResponseBody
+    public ResponseEntity<Iterable<Pair>> getAllPairs() {
         Iterable<Pair> pairs = defaultService.getAllPairs();
-        StringBuilder response = new StringBuilder();
-        if (!pairs.iterator().hasNext()) response.append(Constants.ERROR_PAIR_NOT_FOUND);
-        else pairs.forEach(pair -> response.append(pair).append("</br>"));
-        return response.toString();
+        if (!pairs.iterator().hasNext()) throw new EntityNotFoundException(Constants.ERROR_PAIR_NOT_FOUND);
+        return new ResponseEntity<>(pairs, HttpStatus.OK);
     }
 
-    @GetMapping(path = {"pair/getByUserId/{id}"})
+    @GetMapping(path = {"pair/getByUserId"})
     @ResponseBody
-    public String getPairByUser(@PathVariable Long id) {
-        try {
-            Iterable<Pair> pairs = defaultService.getPairByUser(defaultService.getUserById(id).orElseThrow(() -> new IllegalArgumentException("user not found")));
-            if (!pairs.iterator().hasNext()) throw new IllegalArgumentException(Constants.ERROR_PAIR_NOT_FOUND);
-            StringBuilder response = new StringBuilder();
-            pairs.forEach(pair -> response.append(pair).append("</br>"));
-            return response.toString();
-        } catch (IllegalArgumentException e) {
-            return e.getMessage();
-        }
+    public ResponseEntity<Iterable<Pair>> getAllPairsByUser(@RequestParam(name = "id") Long id) {
+        Iterable<Pair> pairs = defaultService.getAllPairsByUser(defaultService.getUserById(id)
+                .orElseThrow(() -> new EntityNotFoundException(Constants.ERROR_USER_NOT_FOUND)));
+        if (!pairs.iterator().hasNext()) throw new EntityNotFoundException(Constants.ERROR_PAIR_NOT_FOUND);
+        return new ResponseEntity<>(pairs, HttpStatus.OK);
     }
 
-    @GetMapping(path = {"pair/create/{first_user_id}&{second_user_id}"})
+    @PostMapping(path = {"pair/update/"})
     @ResponseBody
-    public String createUser(@PathVariable Long first_user_id, @PathVariable Long second_user_id) {
-        try {
-            Pair pair = new Pair();
-            pair.setUsers(Set.of(
-                    defaultService.getUserById(first_user_id).orElseThrow(() -> new IllegalArgumentException(Constants.ERROR_PAIR_NOT_FOUND)),
-                    defaultService.getUserById(second_user_id).orElseThrow(() -> new IllegalArgumentException(Constants.ERROR_PAIR_NOT_FOUND))));
-            defaultService.createPair(pair);
-            return "ok";
-        } catch (IllegalArgumentException e) {
-            return e.getMessage();
-        }
+    public ResponseEntity<Void> updatePair(@Valid @RequestBody PairRequest pairRequest) {
+        Pair pair = new Pair();
+        Set<User> userSet = new HashSet<>();
+        defaultService.getAllUsersById(List.of(pairRequest.getFirstUserId(), pairRequest.getSecondUserId())).forEach(userSet::add);
+        pair.setUsers(userSet);
+        if (!defaultService.updatePair(pair)) throw new EntityExistsException(Constants.ERROR_PAIR_IS_EXISTS);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @DeleteMapping(path = {"pair/{id}"})
+    @ResponseBody
+    public ResponseEntity<Void> deletePair(@PathVariable Long id) {
+        if (!defaultService.deletePairById(id)) throw new EntityExistsException(Constants.ERROR_PAIR_NOT_FOUND);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping(path = {"pair/all"})
+    @ResponseBody
+    public ResponseEntity<Void> deleteAllPairs() {
+        defaultService.deleteAllPairs();
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping(path = {"appointment/create/"})
+    @ResponseBody
+    public ResponseEntity<Void> createAppointment(@Valid @RequestBody Appointment appointment) {
+        appointment.setId(null);
+        defaultService.createAppointment(appointment);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @GetMapping(path = {"appointment/{id}"})
+    @ResponseBody
+    public ResponseEntity<Appointment> getAppointment(@PathVariable Long id) {
+        return new ResponseEntity<>(
+                defaultService.getAppointmentById(id).orElseThrow(() ->
+                        new EntityNotFoundException(Constants.ERROR_APPOINTMENT_NOT_FOUND)),
+                HttpStatus.OK);
+    }
+
+    @GetMapping(path = {"appointment/all"})
+    @ResponseBody
+    public ResponseEntity<Iterable<Appointment>> getAllAppointments() {
+        Iterable<Appointment> appointments = defaultService.getAllAppointments();
+        if (!appointments.iterator().hasNext()) throw new EntityNotFoundException(Constants.ERROR_APPOINTMENT_NOT_FOUND);
+        return new ResponseEntity<>(appointments, HttpStatus.OK);
+    }
+
+    @PostMapping(path = {"appointment/update/"})
+    @ResponseBody
+    public ResponseEntity<Void> updateAppointment(@Valid @RequestBody Appointment appointment) {
+        if (!defaultService.updateAppointment(appointment)) throw new EntityExistsException(Constants.ERROR_APPOINTMENT_NOT_FOUND);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping(path = {"appointment/{id}"})
+    @ResponseBody
+    public ResponseEntity<Void> deleteAppointment(@PathVariable Long id) {
+        if (!defaultService.deleteAppointmentById(id)) throw new EntityExistsException(Constants.ERROR_APPOINTMENT_NOT_FOUND);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping(path = {"appointment/all"})
+    @ResponseBody
+    public ResponseEntity<Void> deleteAllAppointments() {
+        defaultService.deleteAllAppointments();
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
