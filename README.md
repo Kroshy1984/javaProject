@@ -1,4 +1,4 @@
-# javaProject
+# DateMe
 
 A university project
 
