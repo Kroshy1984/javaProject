@@ -1,4 +1,4 @@
-package ru.sfedu.javaProject.domain;
+package ru.sfedu.dateme.domain;
 
 public enum Gender {
     MALE, FEMALE

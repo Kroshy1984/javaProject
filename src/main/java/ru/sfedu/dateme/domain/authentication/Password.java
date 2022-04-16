@@ -1,10 +1,10 @@
-package ru.sfedu.javaProject.domain.authentication;
+package ru.sfedu.dateme.domain.authentication;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import ru.sfedu.javaProject.domain.exceptions.PasswordTooLongException;
-import ru.sfedu.javaProject.domain.exceptions.PasswordTooShortException;
-import ru.sfedu.javaProject.domain.exceptions.UnknownEncodingAlgorithmException;
+import ru.sfedu.dateme.domain.exceptions.PasswordTooLongException;
+import ru.sfedu.dateme.domain.exceptions.PasswordTooShortException;
+import ru.sfedu.dateme.domain.exceptions.UnknownEncodingAlgorithmException;
 
 public class Password {
     public static final int MIN_PASSWORD_LENGTH = 8;

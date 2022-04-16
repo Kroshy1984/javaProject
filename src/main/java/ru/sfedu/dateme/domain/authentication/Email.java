@@ -1,7 +1,7 @@
-package ru.sfedu.javaProject.domain.authentication;
+package ru.sfedu.dateme.domain.authentication;
 
 import org.apache.commons.validator.routines.EmailValidator;
-import ru.sfedu.javaProject.domain.exceptions.InvalidEmailAddressException;
+import ru.sfedu.dateme.domain.exceptions.IncorrectEmailAddressException;
 
 public class Email {
     private String address;
@@ -16,7 +16,7 @@ public class Email {
 
     public static Email create(String address) {
         if (!EmailValidator.getInstance().isValid(address))
-            throw new InvalidEmailAddressException();
+            throw new IncorrectEmailAddressException();
 
         return new Email(address);
     }

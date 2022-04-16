@@ -1,8 +1,8 @@
-package ru.sfedu.javaProject.domain;
+package ru.sfedu.dateme.domain;
 
-import ru.sfedu.javaProject.domain.authentication.Email;
-import ru.sfedu.javaProject.domain.authentication.EncodingAlgorithm;
-import ru.sfedu.javaProject.domain.authentication.Password;
+import ru.sfedu.dateme.domain.authentication.Email;
+import ru.sfedu.dateme.domain.authentication.EncodingAlgorithm;
+import ru.sfedu.dateme.domain.authentication.Password;
 
 public class User {
     private String name;

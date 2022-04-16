@@ -1,4 +1,4 @@
-package ru.sfedu.javaProject.domain.exceptions;
+package ru.sfedu.dateme.domain.exceptions;
 
 public class UnknownEncodingAlgorithmException extends DomainException {
 }
