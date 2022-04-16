@@ -1,2 +1,2 @@
 *.properties
-/target
+target/
