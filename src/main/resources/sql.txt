@@ -15,7 +15,29 @@ CREATE TABLE `muam`.`documents` (
   PRIMARY KEY(id, user_id, series, number),
   FOREIGN KEY (user_id)  REFERENCES user(user_id));
 
-########################################################
+
+
+CREATE TABLE `muam`.`boys` (
+  `id` BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `first_name` VARCHAR(45) NOT NULL,
+  `second_name` VARCHAR(45) NOT NULL,
+  `middle_name` VARCHAR(45) NOT NULL
+  `age` INT NOT NULL);
+
+CREATE TABLE `muam`.`girls` (
+  `id` BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  `first_name` VARCHAR(45) NOT NULL,
+  `second_name` VARCHAR(45) NOT NULL,
+  `middle_name` VARCHAR(45) NOT NULL,
+  `age` INT NOT NULL);
+
+  CREATE TABLE `muam`.`pairs` (
+    `b_id` BIGINT NOT NULL ,
+    `g_id` BIGINT NOT NULL ,
+    UNIQUE(b_id, g_id));
+
+
+
 
 CREATE TABLE `muam`.`person` (
   `user_id` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,

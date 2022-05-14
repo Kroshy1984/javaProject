@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.springframework.data:spring-data-jpa:3.0.0-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-jpa/3.0.0-SNAPSHOT/spring-data-jpa-3.0.0-20220415.192252-277.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-jpa/3.0.0-SNAPSHOT/spring-data-jpa-3.0.0-20220415.192252-277-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/data/spring-data-jpa/3.0.0-SNAPSHOT/spring-data-jpa-3.0.0-20220415.192252-277-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,7 +1,10 @@
 package ru.sfedu.javaProject.api;
 
 import ru.sfedu.javaProject.Constants;
-import ru.sfedu.javaProject.model.User;
+import ru.sfedu.javaProject.model.Boy;
+import ru.sfedu.javaProject.model.Girl;
+import ru.sfedu.javaProject.model.Pair;
+
 import ru.sfedu.javaProject.utils.ConfigurationUtil;
 
 import java.io.IOException;
@@ -32,59 +35,136 @@ public class DataProviderJDBC implements DataProvider {
     private Connection getConnection() throws IOException, SQLException {
         Connection connection = DriverManager.getConnection(
                 ConfigurationUtil.getConfigurationEntry(Constants.JDBC_URL),
-                ConfigurationUtil.getConfigurationEntry(Constants.JDBC_USER),
+                ConfigurationUtil.getConfigurationEntry(Constants.JDBC_BOY),
                 ConfigurationUtil.getConfigurationEntry(Constants.JDBC_PASSWORD));
         return connection;
     }
 
     private void createTables() throws SQLException, IOException {
         Connection connection = getConnection();
-        connection.createStatement().executeUpdate(Constants.SQL_USER_TABLE_CREATE);
+        connection.createStatement().executeUpdate(Constants.SQL_BOY_TABLE_CREATE);
         connection.close();
     }
 
     public void dropTables() throws SQLException, IOException {
         Connection connection = getConnection();
-        connection.createStatement().executeUpdate(Constants.SQL_USER_DROP_TABLE);
+        connection.createStatement().executeUpdate(Constants.SQL_BOY_DROP_TABLE);
         connection.close();
     }
-
-    private List<User> getUserListFromResultSet(ResultSet resultSet) throws SQLException {
-        List<User> userList = new ArrayList<>();
+    //BOY
+    private List<Boy> getBoyListFromResultSet(ResultSet resultSet) throws SQLException {
+        List<Boy> boyList = new ArrayList<>();
         while (resultSet.next()) {
-            User user = new User();
-            user.setId(resultSet.getLong(1));
-            user.setFirstname(resultSet.getString(2));
-            user.setSurname(resultSet.getString(3));
-            user.setPatronymic(resultSet.getString(4));
-            userList.add(user);
+            Boy boy = new Boy();
+            boy.setId(resultSet.getLong(1));
+            boy.setName(resultSet.getString(2));
+            boy.setAge(resultSet.getInt(3));
+            boyList.add(boy);
         }
-        return userList;
+        return boyList;
     }
 
 
     @Override
-    public void createUser(User user) throws SQLException, IOException {
+    public void createBoy(Boy boy) throws SQLException, IOException {
         Connection connection = getConnection();
-        connection.createStatement().executeUpdate(String.format(Constants.SQL_USER_INSERT, user.getFirstname(), user.getSurname(), user.getPatronymic()));
+        connection.createStatement().executeUpdate(String.format(Constants.SQL_BOY_INSERT, boy.getName(), boy.getAge()));
     }
 
     @Override
-    public Optional<User> getUserById(Long id) throws SQLException, IOException {
+    public Optional<Boy> getBoyById(Long id) throws SQLException, IOException {
         Connection connection = getConnection();
-        List<User> userList = getUserListFromResultSet(connection.prepareStatement(String.format(Constants.SQL_USER_SELECT_BY_ID, id)).executeQuery());
-        return userList.stream().findAny();
+        List<Boy> boyList = getBoyListFromResultSet(connection.prepareStatement(String.format(Constants.SQL_BOY_SELECT_BY_ID, id)).executeQuery());
+        return boyList.stream().findAny();
     }
 
     @Override
-    public void updateUser(User user) throws SQLException, IOException {
+    public void updateBoy(Boy boy) throws SQLException, IOException {
         Connection connection = getConnection();
-        connection.createStatement().executeUpdate(String.format(Constants.SQL_USER_UPDATE_BY_ID, user.getFirstname(), user.getSurname(), user.getPatronymic(), user.getId()));
+        connection.createStatement().executeUpdate(String.format(Constants.SQL_BOY_UPDATE_BY_ID, boy.getName(), boy.getAge(), boy.getId()));
     }
 
     @Override
-    public void deleteUserById(Long id) throws SQLException, IOException {
+    public void deleteBoyById(Long id) throws SQLException, IOException {
         Connection connection = getConnection();
-        connection.createStatement().executeUpdate(String.format(Constants.SQL_USER_DELETE_BY_ID, id));
+        connection.createStatement().executeUpdate(String.format(Constants.SQL_BOY_DELETE_BY_ID, id));
+    }
+
+    //GIRL
+    private List<Girl> getGirlListFromResultSet(ResultSet resultSet) throws SQLException {
+        List<Girl> girlList = new ArrayList<>();
+        while (resultSet.next()) {
+            Girl girl = new Girl();
+            girl.setId(resultSet.getLong(1));
+            girl.setName(resultSet.getString(2));
+            girl.setAge(resultSet.getInt(3));
+            girlList.add(girl);
+        }
+        return girlList;
+    }
+
+
+    @Override
+    public void createGirl(Girl girl) throws SQLException, IOException {
+        Connection connection = getConnection();
+        connection.createStatement().executeUpdate(String.format(Constants.SQL_GIRL_INSERT, girl.getName(), girl.getAge()));
+    }
+
+    @Override
+    public Optional<Girl> getGirlById(Long id) throws SQLException, IOException {
+        Connection connection = getConnection();
+        List<Girl> girlList = getGirlListFromResultSet(connection.prepareStatement(String.format(Constants.SQL_GIRL_SELECT_BY_ID, id)).executeQuery());
+        return girlList.stream().findAny();
+    }
+
+    @Override
+    public void updateGirl(Girl girl) throws SQLException, IOException {
+        Connection connection = getConnection();
+        connection.createStatement().executeUpdate(String.format(Constants.SQL_GIRL_UPDATE_BY_ID, girl.getName(), girl.getAge(), girl.getId()));
+    }
+
+    @Override
+    public void deleteGirlById(Long id) throws SQLException, IOException {
+        Connection connection = getConnection();
+        connection.createStatement().executeUpdate(String.format(Constants.SQL_GIRL_DELETE_BY_ID, id));
+    }
+
+    //PAIR
+    private List<Pair> getPairListFromResultSet(ResultSet resultSet) throws SQLException {
+        List<Pair> pairList = new ArrayList<>();
+        while (resultSet.next()) {
+            Pair pair = new Pair();
+            pair.setId(resultSet.getLong(1));
+            pair.setB_id(resultSet.getLong(2));
+            pair.setG_id(resultSet.getLong(3));
+            pairList.add(pair);
+        }
+        return pairList;
+    }
+
+
+    @Override
+    public void createPair(Pair pair) throws SQLException, IOException {
+        Connection connection = getConnection();
+        connection.createStatement().executeUpdate(String.format(Constants.SQL_PAIR_INSERT, pair.getB_id(), pair.getG_id()));
+    }
+
+    @Override
+    public Optional<Pair> getPairById(Long id) throws SQLException, IOException {
+        Connection connection = getConnection();
+        List<Pair> pairList = getPairListFromResultSet(connection.prepareStatement(String.format(Constants.SQL_PAIR_SELECT_BY_ID, id)).executeQuery());
+        return pairList.stream().findAny();
+    }
+
+    @Override
+    public void updatePair(Pair pair) throws SQLException, IOException {
+        Connection connection = getConnection();
+        connection.createStatement().executeUpdate(String.format(Constants.SQL_PAIR_UPDATE_BY_ID, pair.getB_id(), pair.getG_id(), pair.getId()));
+    }
+
+    @Override
+    public void deletePairById(Long id) throws SQLException, IOException {
+        Connection connection = getConnection();
+        connection.createStatement().executeUpdate(String.format(Constants.SQL_PAIR_DELETE_BY_ID, id));
     }
 }

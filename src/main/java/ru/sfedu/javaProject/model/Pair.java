@@ -1,22 +1,31 @@
 package ru.sfedu.javaProject.model;
 
-import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@Entity(name = "Pairs")
-@Data
-@NoArgsConstructor
 public class Pair {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false)
     private Long id;
+    private Long b_id;
+    private Long g_id;
 
-    @Column(name = "first_user_id", nullable = false)
-    private Long firstUserId;
+    public Long getId() {
+        return id;
+    }
 
-    @Column(name = "second_user_id", nullable = false)
-    private Long secondUserId;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getB_id() {
+        return b_id;
+    }
+
+    public void setB_id(Long b_id) {
+        this.b_id = b_id;
+    }
+
+    public Long getG_id() {
+        return g_id;
+    }
+
+    public void setG_id(Long g_id) {
+        this.g_id = g_id;
+    }
 }

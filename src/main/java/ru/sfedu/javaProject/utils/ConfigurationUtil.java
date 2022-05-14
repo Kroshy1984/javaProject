@@ -24,7 +24,7 @@ public class ConfigurationUtil {
     public ConfigurationUtil() {
 
     }
-    
+
     private static Properties getConfiguration() throws IOException {
         if(configuration.isEmpty()){
             loadConfiguration();
@@ -54,5 +54,5 @@ public class ConfigurationUtil {
     public static String getConfigurationEntry(String key) throws IOException{
         return getConfiguration().getProperty(key);
     }
-    
+
 }
