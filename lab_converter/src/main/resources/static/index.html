@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Конвертер</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+        body {
+            font-family: arial; background-color: #c2fff5;
+        }
+    </style>
+</head>
+<body>
+<h1>Перевод в бытовую систему</h1>
+<form action="/convert" method="get">
+    <ul>
+        <li>Продукт &nbsp <input type="text" name="product"></li>
+        <li>Колличество в метрической системе &nbsp <input type="number" name="count"></li>
+        <li><input type="submit" value="конвертировать" style="background-color:yellow; width: 140px; height:30px; border-color: red;"></li>
+    </ul>
+</form>
+
+</body>
+</html>
