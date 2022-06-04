@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5c52129b-5afd-475b-acfa-040272ca2854" name="Default Changelist" comment="some change" />
+    <list default="true" id="5c52129b-5afd-475b-acfa-040272ca2854" name="Default Changelist" comment="installed maven">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -51,7 +53,14 @@
       <option name="project" value="LOCAL" />
       <updated>1648888161495</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="installed maven">
+      <created>1654340284712</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1654340284712</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -81,6 +90,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="some change" />
     <MESSAGE value="some change two" />
-    <option name="LAST_COMMIT_MESSAGE" value="some change two" />
+    <MESSAGE value="installed maven" />
+    <option name="LAST_COMMIT_MESSAGE" value="installed maven" />
   </component>
 </project>
