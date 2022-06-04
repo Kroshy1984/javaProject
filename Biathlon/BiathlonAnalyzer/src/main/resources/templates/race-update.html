@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<meta charset="UTF-8">
+<title>Race update</title>
+</head>
+<body>
+<form action="#" th:action="@{/race-update}" th:object="${race}" method="post">
+    <label for="id">ID</label>
+    <input readonly type="number" th:field="*{id}" id="id" placeholder="ID">
+    <br/>
+    <label for="stage">First name</label>
+    <input type="text" th:field="*{stage}" id="stage" placeholder="Stage">
+    <br/>
+    <label for="raceType">Last name</label>
+    <input type="text" th:field="*{raceType}" id="raceType" placeholder="Race Type">
+    <br/>
+    <input type="submit" value="Update Race">
+</form>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Create race</title>
+</head>
+<body>
+<form action="#" th:action="@{/race-create}" th:object="${race}" method="post">
+    <label for="stage">Stage</label>
+    <input type="text" th:field="*{stage}" id="stage" placeholder="Stage">
+    <label for="raceType">Race type</label>
+    <input type="text" th:field="*{raceType}" id="raceType" placeholder="Race Type">
+    <input type="submit" value="Create Race">
+</form>
+
+</body>
+</html>

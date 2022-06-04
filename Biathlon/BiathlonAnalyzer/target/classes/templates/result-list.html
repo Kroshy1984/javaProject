@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html class="pokljukaWinter" lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Results</title>
+  <link th:href="@{/css/mystyle.css}" rel="stylesheet" />
+  <link th:href="@{/css/header.css}" rel="stylesheet" />
+  <link th:href="@{/css/backgrounds.css}" rel="stylesheet" />
+</head>
+<body>
+<header th:insert="blocks/header :: header"></header>
+<div th:switch="${results}">
+  <h3 CLASS="header-h3" th:case="null">No results found!</h3>
+  <div class="parrent">
+    <div class="block" th:case="*">
+      <div class="header-border">
+          <h3>Results</h3>
+      </div>
+      <table>
+        <thead>
+        <tr>
+          <th>Id</th>
+          <th>Stage</th>
+          <th>Race Type</th>
+          <th>Sportsman</th>
+          <th>Place</th>
+          <th>Time</th>
+          <th>Course total time</th>
+          <th>Shooting time</th>
+          <th>Misses</th>
+          <th></th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="result : ${results}">
+          <td th:text="${result.id}"></td>
+          <td th:text="${result.race.stage}"></td>
+          <td th:text="${result.race.raceType}"></td>
+          <td th:text="${result.sportsman.name}"></td>
+          <td th:text="${result.place}"></td>
+          <td th:text="${result.time}"></td>
+          <td th:text="${result.courseTotalTime}"></td>
+          <td th:text="${result.shootingTime}"></td>
+          <td th:text="${result.misses}"></td>
+          <td><a th:href="@{result-update/{id}(id=${result.id})}">Edit</a></td>
+          <td><a th:href="@{result-delete/{id}(id=${result.id})}">Delete</a></td>
+        </tr>
+        </tbody>
+      </table>
+      <p><a CLASS="green" href="/result-create">Add Result</a></p>
+    </div>
+  </div>
+</div>
+</body>
+</html>

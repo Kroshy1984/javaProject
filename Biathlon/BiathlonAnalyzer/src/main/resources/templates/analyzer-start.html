@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html class="pokljukaPen" lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Athlete Choosing</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link th:href="@{/css/mystyle.css}" rel="stylesheet" />
+    <link th:href="@{/css/header.css}" rel="stylesheet" />
+    <link th:href="@{/css/backgrounds.css}" rel="stylesheet" />
+</head>
+<body>
+<header th:insert="blocks/header :: header"></header>
+<div class="header-border">
+    <h3 align = "center">Now you need to select an athlete from the list.</h3>
+</div>
+<p align="center">*The analyzer will calculate the average gap between this athlete and the athlete<br> who took first place in all races in which the selected athlete took part.</p>
+
+<div th:switch="${sportsmen}">
+    <h2 th:case="null">No athletes found!</h2>
+    <div CLASS="parrent">
+        <div class="block" th:case="*">
+            <table>
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="sportsman : ${sportsmen}">
+                    <td th:text="${sportsman.id}"></td>
+                    <td th:text="${sportsman.name}"></td>
+                    <td><a th:href="@{analyzer-analyze/{id}(id=${sportsman.id})}">select</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<meta charset="UTF-8">
+<title>Result update</title>
+</head>
+<body>
+<form action="#" th:action="@{/result-update}" th:object="${result}" method="post">
+  <input hidden readonly type="number" th:field="*{id}" id="id" placeholder="ID">
+
+  <input hidden type="number" th:field="*{race.id}" id="race_id" placeholder="raceID">
+
+  <input hidden type="number" th:field="*{sportsman.id}" id="sportsman_id" placeholder="sportsmanID">
+
+  <label for="place">Place</label>
+  <input type="number" th:field="*{place}" id="place" placeholder="Place">
+  <br/>
+
+  <label for="courseTotalTime">course_total_Time</label>
+  <input type="text" th:field="*{courseTotalTime}" id="courseTotalTime" placeholder="courseTotalTime">
+  <br/>
+
+  <label for="shootingTime">shootingTime</label>
+  <input type="text" th:field="*{shootingTime}" id="shootingTime" placeholder="Time">
+  <br/>
+
+  <label for="misses">Misses</label>
+  <input type="number" th:field="*{misses}" id="misses" placeholder="Misses">
+  <br/>
+
+  <input type="submit" value="Update result">
+</form>
+</body>
+</html>

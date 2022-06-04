@@ -1,0 +1,104 @@
+a.buttons {
+  width: 150px;
+  height: 30px;
+  text-decoration: none;
+  padding-top: 9px;
+  color: #a675b3;
+  text-align: center;
+  line-height: 20px;
+  display: block;
+  margin: 20px auto;
+  font: normal 17px arial;
+}
+
+a.buttons:not(.active) {
+  box-shadow: inset 0 1px 1px rgba(111, 55, 125, 0.8), inset 0 -1px 0px rgba(63, 59, 113, 0.2), 0 9px 16px 0 rgba(0, 0, 0, 0.3), 0 4px 3px 0 rgba(0, 0, 0, 0.3), 0 0 0 1px #150a1e;
+  background-image: linear-gradient(#3b2751, #6a1b9a);
+  text-shadow: 0 0 21px rgba(223, 206, 228, 0.5), 0 -1px 0 #311d47;
+}
+
+a.buttons:not(.active):hover,
+a.buttons:not(.active):focus {
+  transition: color 200ms linear, text-shadow 500ms linear;
+  color: #fff;
+  text-shadow: 0 0 21px rgba(223, 206, 228, 0.5), 0 0 10px rgba(223, 206, 228, 0.4), 0 0 2px #2a153c;
+}
+a.buttons:not(:hover) {
+    transition: 0.6s;
+}
+
+.mydiv {
+width: 50%;
+margin: 0 30% 0 30%;
+height: 100px;
+}
+
+#myinline {
+display:inline-block;
+}
+
+a.green{
+font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+font-size: 14px;
+border-radius: 4px;
+-webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.08);
+-moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.08);
+box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.08);
+color: #F8E391;
+display:block;
+width:100px;
+text-align: center;
+padding: 8px 16px;
+margin: 20px auto;
+text-decoration: none;
+text-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
+-webkit-transition: background-color 0.1s linear;
+-moz-transition: background-color 0.1s linear;
+-o-transition: background-color 0.1s linear;
+transition: background-color 0.1s linear;
+text-shadow: 0 1px 1px #2D2020;
+}
+a.green {
+background: #BCEBDD;
+color: #fff;
+text-shadow: 0 1px 1px #2D2020;
+padding: 10px 20px;
+border: 1px solid #fff;
+}
+
+a.green:hover {
+color: #F8E391;
+border: 1px solid #F8E391;
+}
+
+
+a.purple{
+font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+font-size: 14px;
+  outline: none;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  line-height: 3;
+  color: #fff;
+  margin-bottom: 0;
+  font-size: 1rem;
+  text-transform: uppercase;
+  padding: .5rem 1rem;
+  border: .125rem solid #fff;
+}
+
+a.purple:link, a.purple:visited, a.purple:focus {
+  background: #6a1b9a;
+}
+
+a.purple:hover {
+  background: #fff;
+  color: #6a1b9a;
+  border: .125rem solid #6a1b9a;
+}
+
+a.purple:active {
+  background: #6a1b9a;
+  color: #fff;
+}

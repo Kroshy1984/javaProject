@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<html class="pokljukaPen" lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Analyzer</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link th:href="@{/css/mystyle.css?123}" rel="stylesheet" />
+    <link th:href="@{/css/header.css?123}" rel="stylesheet" />
+    <link th:href="@{/css/backgrounds.css?123}" rel="stylesheet" />
+</head>
+<body>
+<header th:insert="blocks/header :: header"></header>
+<div class="header-border">
+    <h2><span th:text="${sportsman.name}"></span> is on average <span th:text="${gap}"></span> minutes behind</h2>
+    <p><a class="purple" href="/analyzer">Back to analyzer</a></p>
+</div>
+</body>
+</html>

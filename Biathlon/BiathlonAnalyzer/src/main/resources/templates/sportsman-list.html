@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html class="dark" lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Athletes</title>
+  <link th:href="@{/css/mystyle.css}" rel="stylesheet" />
+  <link th:href="@{/css/header.css}" rel="stylesheet" />
+  <link th:href="@{/css/backgrounds.css}" rel="stylesheet" />
+</head>
+<body>
+<header th:insert="blocks/header :: header"></header>
+<div th:switch="${sportsmen}">
+  <h2 th:case="null">No athletes found!</h2>
+  <div class="parrent">
+  <div class="block" th:case="*">
+    <div class="header-border">
+      <h3>Athletes</h3>
+    </div>
+    <table>
+      <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Country</th>
+        <th></th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="sportsman : ${sportsmen}">
+        <td th:text="${sportsman.id}"></td>
+        <td th:text="${sportsman.name}"></td>
+        <td th:text="${sportsman.country}"></td>
+        <td><a th:href="@{sportsman-update/{id}(id=${sportsman.id})}">Edit</a></td>
+        <td><a th:href="@{sportsman-delete/{id}(id=${sportsman.id})}">Delete</a></td>
+      </tr>
+      </tbody>
+    </table>
+    <p><a class="green" href="/sportsman-create">Add athlete</a></p>
+  </div>
+  </div>
+</div>
+</body>
+</html>

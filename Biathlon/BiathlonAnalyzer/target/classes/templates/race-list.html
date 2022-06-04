@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html class="fans" lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Races</title>
+    <link th:href="@{/css/mystyle.css}" rel="stylesheet" />
+    <link th:href="@{/css/header.css}" rel="stylesheet" />
+    <link th:href="@{/css/backgrounds.css}" rel="stylesheet" />
+</head>
+<body>
+<header th:insert="blocks/header :: header"></header>
+<div th:switch="${races}">
+    <h2 th:case="null">No races found!</h2>
+    <div class="parrent">
+    <div class="block" th:case="*">
+        <div class="header-border">
+            <h3>Races</h3>
+        </div>
+        <table>
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Stage</th>
+                <th>Race type</th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="race : ${races}">
+                <td th:text="${race.id}"></td>
+                <td th:text="${race.stage}"></td>
+                <td th:text="${race.raceType}"></td>
+                <td><a th:href="@{race-update/{id}(id=${race.id})}">Edit</a></td>
+                <td><a th:href="@{race-delete/{id}(id=${race.id})}">Delete</a></td>
+            </tr>
+            </tbody>
+        </table>
+        <p><a class="green" href="/race-create">Add race</a></p>
+    </div>
+    </div>
+
+</div>
+</body>
+</html>

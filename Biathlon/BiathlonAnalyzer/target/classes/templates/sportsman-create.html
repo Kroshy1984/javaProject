@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Create athlete</title>
+</head>
+<body>
+<form action="#" th:action="@{/sportsman-create}" th:object="${sportsman}" method="post">
+    <label for="name">Name</label>
+    <input type="text" th:field="*{name}" id="name" placeholder="Name">
+    <label for="country">Country</label>
+    <input type="text" th:field="*{country}" id="country" placeholder="Country">
+    <input type="submit" value="Create athlete">
+</form>
+
+</body>
+</html>

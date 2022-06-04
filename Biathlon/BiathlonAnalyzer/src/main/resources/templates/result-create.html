@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Create result</title>
+</head>
+<body>
+<form action="#" th:action="@{/result-create}" th:object="${result}" method="post">
+    <label for="race_id">race_id</label>
+    <input type="text" th:field="*{race}" id="race_id" placeholder="raceID"><br>
+
+    <label for="sportsman_id">sportsman_id</label>
+    <input type="text" th:field="*{sportsman}" id="sportsman_id" placeholder="sportsmanID"><br>
+
+    <label for="place">Place</label>
+    <input type="number" th:field="*{place}" id="place" placeholder="Place"><br>
+
+    <label for="courseTotalTime">course_total_Time</label>
+    <input type="text" th:field="*{courseTotalTime}" id="courseTotalTime" placeholder="courseTotalTime">
+    <br/>
+
+    <label for="shootingTime">shootingTime</label>
+    <input type="text" th:field="*{shootingTime}" id="shootingTime" placeholder="Time">
+    <br/>
+
+    <label for="misses">Misses</label>
+    <input type="number" th:field="*{misses}" id="misses" placeholder="Misses">
+    <br/>
+
+    <input type="submit" value="Create Result">
+</form>
+
+</body>
+</html>
