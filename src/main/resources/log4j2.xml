@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+    <Parameters>
+        <param name="MaxBackupIndex" value="2"/>
+    </Parameters>
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n"/>
+        </Console>
+        <RollingFile name="FatCalculator"
+                     filename= "logs/Mylog.log"
+                     filePattern="logs/arh-%d{yyyy-MM-dd}.log"
+                     append = "true">
+            <PatternLayout pattern="%d{MM.dd:HH.mm.ss} %5p\t%c:%L - %m%n"/>
+            <Policies>
+
+                <SizeBasedTriggeringPolicy size="500 KB" />
+            </Policies>
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+
+        <Logger name= "ru.sfedu.FatCalculator" level="trace" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="FatCalculator"/>
+        </Logger>
+
+        <!-- Root Logger -->
+        <Root level="trace">
+
+        </Root>
+    </Loggers>
+
+
+</Configuration>
