@@ -1,0 +1,18 @@
+version: "3"
+services:
+  first_server:
+    container_name: first_server
+    restart: always
+    build: .
+    command: java -cp ".:netty-all-4.1.0.CR3.jar" Server 28563 172.17.0.1 28566
+    ports:
+      - 28563:28563
+
+
+  second_server:
+    container_name: second_server
+    restart: always
+    build: .
+    command: java -cp ".:netty-all-4.1.0.CR3.jar" Server 28566 172.17.0.1 28563
+    ports:
+      - 28566:28566
