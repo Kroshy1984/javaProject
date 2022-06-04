@@ -14,9 +14,9 @@ public class Main {
     public static void main(String[] args) {
         SpringApplication.run(Main.class, args);
         /*User user = new User();
-        user.setFirstname("Дмитрий");
-        user.setSurname("Харатян");
-        user.setPatronymic("Александрович");
+        user.setFirstname("Даша");
+        user.setSurname("Михник");
+        user.setPatronymic("Романовна");
 
         try {
             DataProvider dataProvider = DataProviderJDBC.getInstance();
