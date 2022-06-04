@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${post.title}"></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+<header th:insert="layouts/header :: header"></header>
+
+<div class="container mt-5">
+    <div class="alert alert-info mt-2">
+        <h1 th:text="${post.title}"></h1>
+        <p th:text="${post.full_text}"></p>
+        <p><b>Просмотров: </b> <span th:text="${post.views}"></span></p>
+
+        <a th:href="'/post/' + ${post.id} + '/edit'" class="btn btn-success">Редактировать</a>
+        <form th:action="'/post/' + ${post.id} + '/delete'" method="post" class="mt-3">
+            <button class="btn btn-danger">Удалить</button>
+        </form>
+    </div>
+</div>
+
+<div th:insert="layouts/footer :: footer"></div>
+
+</body>
+</html>
