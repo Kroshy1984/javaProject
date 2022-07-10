@@ -1,8 +1,30 @@
 package ru.sfedu.javaProject;
 
-public class Main {
+import ru.sfedu.javaProject.api.DataProvider;
+import ru.sfedu.javaProject.api.DataProviderJDBC;
+import ru.sfedu.javaProject.model.User;
 
+import java.io.IOException;
+import java.sql.SQLException;
+
+public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        User user = new User();
+        user.setFirstname("Александр");
+        user.setSurname("Муханин");
+        user.setPatronymic("Александрович");
+
+        try {
+            DataProvider dataProvider = DataProviderJDBC.getInstance();
+            dataProvider.createUser(user);
+            dataProvider.getUserById(1L).ifPresentOrElse(System.out::println, () -> System.out.println("user not found"));
+            dataProvider.deleteUserById(1L);
+            dataProvider.getUserById(1L).ifPresentOrElse(System.out::println, () -> System.out.println("user not found"));
+
+            DataProviderJDBC.getInstance().dropTables();
+        } catch (SQLException | IOException | ClassNotFoundException throwables) {
+            throwables.printStackTrace();
+        }
     }
+
 }
