@@ -1,4 +1,4 @@
-<component name="libraryTable">
+<component name="libraryTable" >
   <library name="Maven: jakarta.xml.bind:jakarta.xml.bind-api:3.0.1">
     <CLASSES>
       <root url="jar://$MAVEN_REPOSITORY$/jakarta/xml/bind/jakarta.xml.bind-api/3.0.1/jakarta.xml.bind-api-3.0.1.jar!/" />

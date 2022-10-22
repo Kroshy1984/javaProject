@@ -1,4 +1,4 @@
-<component name="libraryTable">
+<component name="libraryTable" >
   <library name="Maven: com.sun.activation:jakarta.activation:2.0.1">
     <CLASSES>
       <root url="jar://$MAVEN_REPOSITORY$/com/sun/activation/jakarta.activation/2.0.1/jakarta.activation-2.0.1.jar!/" />

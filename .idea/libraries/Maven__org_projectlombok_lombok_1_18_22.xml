@@ -1,4 +1,4 @@
-<component name="libraryTable">
+<component name="libraryTable" >
   <library name="Maven: org.projectlombok:lombok:1.18.22">
     <CLASSES>
       <root url="jar://$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.22/lombok-1.18.22.jar!/" />

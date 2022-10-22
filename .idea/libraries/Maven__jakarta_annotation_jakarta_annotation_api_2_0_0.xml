@@ -1,4 +1,4 @@
-<component name="libraryTable">
+<component name="libraryTable" >
   <library name="Maven: jakarta.annotation:jakarta.annotation-api:2.0.0">
     <CLASSES>
       <root url="jar://$MAVEN_REPOSITORY$/jakarta/annotation/jakarta.annotation-api/2.0.0/jakarta.annotation-api-2.0.0.jar!/" />

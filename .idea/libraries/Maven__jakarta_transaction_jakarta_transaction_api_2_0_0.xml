@@ -1,4 +1,4 @@
-<component name="libraryTable">
+<component name="libraryTable" >
   <library name="Maven: jakarta.transaction:jakarta.transaction-api:2.0.0">
     <CLASSES>
       <root url="jar://$MAVEN_REPOSITORY$/jakarta/transaction/jakarta.transaction-api/2.0.0/jakarta.transaction-api-2.0.0.jar!/" />
